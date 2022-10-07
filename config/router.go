@@ -18,11 +18,11 @@ var (
 
 func Initalize(router *fiber.App) {
 	users := router.Group("/users")
-	users.Get("/index", userController.Index)
-	users.Post("/new", userController.Create)
-	users.Get("/show/:id", userController.FindById)
-	users.Put("/update/:id", userController.Update)
-	users.Delete("/delete/:id", userController.Delete)
+	users.Get("/", userController.Index)
+	users.Post("/", userController.Create)
+	users.Get("/:id", userController.FindById)
+	users.Put("/:id", userController.Update)
+	users.Delete("/:id", userController.Delete)
 
 	router.Use(func(c *fiber.Ctx) error {
 		return c.Status(404).JSON(fiber.Map{

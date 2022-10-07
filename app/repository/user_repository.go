@@ -34,7 +34,7 @@ func (repo *userConnection) Create(user model.User) model.User {
 }
 
 func (repo *userConnection) Update(user model.User) model.User {
-	repo.db.Model(&model.User{}).Updates(user)
+	repo.db.Model(&model.User{}).Where("id = ?", user.ID).Updates(user)
 	return user
 }
 

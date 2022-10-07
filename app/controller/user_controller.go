@@ -44,8 +44,7 @@ func (handler *userController) Create(ctx *fiber.Ctx) error {
 	}
 	user := handler.userService.Create(userCreateValidation)
 	result := helper.SuccessResponse(true, "Data User Created", user)
-	ctx.JSON(result)
-	return nil
+	return ctx.JSON(result)
 }
 
 func (handler *userController) FindById(ctx *fiber.Ctx) error {
@@ -57,8 +56,7 @@ func (handler *userController) FindById(ctx *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 	result := helper.SuccessResponse(true, "Data User", user)
-	ctx.JSON(result)
-	return nil
+	return ctx.JSON(result)
 }
 
 func (handler *userController) Update(ctx *fiber.Ctx) error {
@@ -70,7 +68,7 @@ func (handler *userController) Update(ctx *fiber.Ctx) error {
 		return fiber.ErrBadRequest
 	}
 	var userUpdateValidation request.UserUpdateValidation
-	userUpdateValidation.ID = ctx.Params("id")
+	userUpdateValidation.ID = int(id)
 	err := ctx.BodyParser(&userUpdateValidation)
 	if err != nil {
 		response := helper.ErrorResponse("Request Failed", err.Error(), helper.EmptyObj{})
@@ -79,8 +77,7 @@ func (handler *userController) Update(ctx *fiber.Ctx) error {
 	}
 	updateUser := handler.userService.Update(userUpdateValidation)
 	result := helper.SuccessResponse(true, "Data User Updated", updateUser)
-	ctx.JSON(result)
-	return nil
+	return ctx.JSON(result)
 }
 
 func (handler *userController) Delete(ctx *fiber.Ctx) error {
